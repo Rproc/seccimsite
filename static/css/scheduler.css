@@ -1,0 +1,27 @@
+h1, h2 { margin: 1em 0 1.5em 0; color: #fff}
+.tabs h1, .tabs h2 { color: #333; margin-bottom: 1em;}
+.tabs ul, .tabs ol, .tabs p { margin-top:0; padding-top: 1em;}
+.tabs ul li, .tabs ol li { margin-bottom: 0.5em;}
+
+hgroup h1 { margin-bottom:0; margin-top:0; line-height: 1.2em;}
+
+hgroup h2 { font-size: 1.1em; font-weight: normal; position: absolute; top: 16px; right:20px;}
+
+
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+.intro { margin: 20px 0; background: #c9f6f9; border: 1px solid #ccc; box-shadow: 2px 2px 2px #eee; padding: 5px 15px 10px 15px; }
+p.demo-intro { font-size: 1.2em; margin-bottom: -0.5em; font-weight: bold; }
+
+@media (max-width: 767px) {
+  hgroup h1 { margin-top: 25px;}
+  hgroup h2 { top: 0; left: 5px; font-size:12px;}
+}

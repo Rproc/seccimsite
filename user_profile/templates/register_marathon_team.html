@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<section id="contact" class="section registration">
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <h4>Cadastro de Time</h4>
+        <div class="blankdivider30">
+        </div>
+        <div class="cform" id="contact-form">
+            {% if form %}
+                <p class="error-message">{{ form }}</p>
+            {% endif %}
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% elif success %}
+                <p>{{ success }}</p>
+            {% endif %}
+            <form action="/marathon_team/" method="post" class="contactForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <input name="nick" value="{% if user.profile.team %}{{ user.profile.team.nick }}{% endif %}" class="form-control" id="nick" placeholder="Nick do Time" />
+                            <div class="validation"></div>
+                        </div>
+                        <input type="submit" value="Cadastrar Time" class="btn btn-theme">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

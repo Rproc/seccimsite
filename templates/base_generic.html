@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        {% load staticfiles %}
+        <meta charset="utf-8">
+        <title>VII Seccim</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="{% static 'bower_components/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'bower_components/ionicons/css/ionicons.min.css' %}">
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-fixed-top navbar-solid">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <div class="site-branding">
+                        <a class="logo" href="/index/">
+
+                            <img src="{% static 'img/logo-small.png' %}" alt="Logo">
+
+                            VII SECCIM
+                        </a>
+                    </div>
+
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar-items">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item"><a class="nav-link" title="Sobre" href="/index/#about">Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link" title="Palestras" href="/index/#scheduler">Palestras</a></li>
+                        <li class="nav-item"><a class="nav-link" title="Palestrantes" href="/index/#speakers">Palestrantes</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" title="Patrocinadores" href="/index/#partner">Patrocinadores</a></li> -->
+                        <li class="nav-item"><a class="nav-link" title="Galeria" href="/index/#gallery">Galeria</a></li>
+                        <li class="nav-item"><a class="nav-link" title="Contato" href="/index/#contact">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link" title="Localização" href="/index/#location">Local</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="false">{{ user.profile.getFirstName }}<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/register/">Perfil</a></li>
+                                    <li><a href="/marathon/">Maratona</a></li>
+                                    <li><a href="/certificates/">Certificados</a></li>
+                                    {% if request.user.is_superuser %}
+                                        <li><a href="/payment/">Pagamentos</a></li>
+                                        <li><a href="/lists/">Listas</a></li>
+                                    {% endif %}
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/logout/">Sair</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/signup/">Signup</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bower_components/smooth-scroll/dist/js/smooth-scroll.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</html>

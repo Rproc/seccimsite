@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <section class="section registration">
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <h4>Listas</h4>
+
+            <legend>Criar lista das Palestras</legend>
+            <form action="/lists/" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <select class="form-control" id="lectures" name="lectures">
+                        <option value="all">Todos</option>
+                        {% for lec in lectures %}
+                            <option value="{{ lec.id }}" {% if lec.id == lecId %}selected{% endif %}>{{ lec.title }}</option>
+                        {% endfor %}
+                        
+                    </select>
+                    <input type="submit" value="Filtrar">
+                </div>
+                <table border="1">
+                {% for user in users %}
+                	<tr>
+	                    <td>{{ user.name }}</td>
+	                    <td>{{ user.user.email }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+                
+            </form>
+
+        </div>
+    </section>
+
+{% endblock %}

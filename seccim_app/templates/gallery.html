@@ -1,0 +1,38 @@
+<section id="gallery">
+
+    <div class="container gallery-container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Galeria</h3>
+            </div>
+        </div>
+
+        {% load staticfiles %}
+        <header class="clearfix">
+            <link href="{% static 'css/fluid-gallery.css' %}" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+        </header>
+
+        <div class="tz-gallery">
+
+            <div class="row">
+
+                {% for i in photos_indexes %}
+                    <div class="col-sm-{% if forloop.counter0|divisibleby:3 %}12{% else %}6{% endif %} col-md-4">
+                        <a class="lightbox" href="{% static 'img/photos/photo_' %}{{ i }}.jpg">
+                            <img src="{% static 'img/photos/photo_' %}{{ i }}.jpg" alt="Bridge">
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script>
+
+</section>

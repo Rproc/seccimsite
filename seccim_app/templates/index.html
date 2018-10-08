@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    {% load staticfiles %}
+
+    <header id="site-header" class="site-header valign-center">
+        <div class="headintro">
+
+            <img src = "{% static 'img/_logo.png' %}" alt = "Logo da SECCIM" />
+
+            <h2>Semana Acadêmica de Ciência da Computação</h2>
+
+            <h1>Feita por <b>Alunos</b> para <b>Alunos</b></h1>
+
+        </div>
+    </header>
+    <br>
+    <br>
+    {% if user.is_authenticated and user.profile and not user.profile.payed %}
+        <section>
+            <div class="container">
+                <p class="error-message">Seu pagamento ainda não foi confirmado, entre em contato com a organição do evento para sua conta ser liberada,
+                 ou efetue o pagamento junto a alguém da organização ou através da nossa conta no picpay: @esdrasa. Obrigado.</p>
+            </div>
+        </section>
+    {% endif %}
+
+    {% include 'about.html' %}
+
+    {% include 'scheduler.html' %}
+
+    {% include 'speakers.html' %}
+
+    <!-- {% include 'partner.html' %} -->
+
+    {% include 'gallery.html' %}
+
+    {% include 'contact.html' %}
+
+    {% include 'location.html' %}
+
+{% endblock %}

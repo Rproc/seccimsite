@@ -1,0 +1,53 @@
+<section id="speakers" class="section schedule">
+    {% load staticfiles %}
+    <section id="speakers" class="section speakers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Palestrantes</h3>
+                </div>
+            </div>
+
+            {% for speaker in speakers %}
+                <div class="col-md-4">
+                    <div class="speaker">
+
+                        <figure>
+                            {% if speaker.photo %}
+                                {% static "" as s %}
+                                <img alt="Foto do palestrante" class="img-responsive center-block" src="{{ s }}images/speakers/{{ speaker.photo }}">
+                            {% else %}
+                                {% if speaker.is_male %}
+                                    <img alt="Foto padão" class="img-responsive center-block" src="{% static 'images/speakers/man.png' %}">
+                                {% else %}
+                                    <img alt="Foto padão" class="img-responsive center-block" src="{% static 'images/speakers/woman.png' %}">
+                                {% endif %}
+                            {% endif %}
+                        </figure>
+
+                        <h4>{{ speaker.name }}</h4>
+
+                        {% if speaker.origin %}
+                            <p>{{ speaker.origin }}</p>
+                        {% endif %}
+
+                        <ul class="social-block">
+                            {% if speaker.twitter %}
+                                <li><a href="http://{{ speaker.twitter }}"><i class="ion-social-twitter"></i></a></li>
+                            {% endif %}
+                            {% if speaker.facebook %}
+                                <li><a href="http://{{ speaker.facebook }}"><i class="ion-social-facebook"></i></a></li>
+                            {% endif %}
+                            {% if speaker.linkedin%}
+                                <li><a href="http://{{ speaker.linkedin }}"><i class="ion-social-linkedin-outline"></i></a></li>
+                            {% endif %}
+                        </ul>
+
+                    </div><!-- /.speaker -->
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </section>
+</section>

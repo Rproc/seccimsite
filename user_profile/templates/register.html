@@ -1,0 +1,117 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<section id="registration" class="section registration">
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        {% if user.is_authenticated %}
+            <h4>Meu Registro</h4>
+        {% else %}
+            <h4>Cadastro</h4>
+        {% endif %}
+        <div class="blankdivider30">
+        </div>
+        <div class="cform" id="contact-form">
+            {% if form_errors %}
+                <p class="error-message">O seguinter campos são obrigatórios:</p>
+                {% for k in form_errors %}
+                    <label class="error-message">* {{ k }}</label>
+                {% endfor %}
+                <br><br>
+            {% endif %}
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <form {% if user.is_authenticated %}
+                action="/register/"
+            {% else %}
+                action="/signup/"
+            {% endif %}
+             method="post" class="contactForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input name="name" class="form-control" id="name" placeholder="Nome completo"
+                                   value="{{ user.profile.name }}" required/>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" name="email" id="email" placeholder="Email"
+                            value="{{ user.email }}" required/>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required/>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmaçao de Senha" required/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="" disabled selected>Sexo</option>
+                                <option value="M" {% if user.profile.gender == 'M' %}selected="selected"{% endif %}>Masculino</option>
+                                <option value="F" {% if user.profile.gender == 'F' %}selected="selected"{% endif %}>Feminino</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="telephone" id="telephone" placeholder="Telefone"
+                            value="{{ user.profile.telephone }}"/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="schooling" name="schooling" required>
+                                <option value="" disabled selected>Escolaridade</option>
+                                <option value="1" {% if user.profile.schooling == '1' %}selected="selected"{% endif %}>Ensino fundamental</option>
+                                <option value="2" {% if user.profile.schooling == '2' %}selected="selected"{% endif %}>Ensino m&eacute;dio</option>
+                                <option value="3" {% if user.profile.schooling == '3' %}selected="selected"{% endif %}>Superior incompleto</option>
+                                <option value="4" {% if user.profile.schooling == '4' %}selected="selected"{% endif %}>Superior completo</option>
+                                <option value="5" {% if user.profile.schooling == '5' %}selected="selected"{% endif %}>P&oacute;s-graduado</option>
+                                <option value="6" {% if user.profile.schooling == '6' %}selected="selected"{% endif %}>Mestrado</option>
+                                <option value="7" {% if user.profile.schooling == '7' %}selected="selected"{% endif %}>Doutorado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="age" id="age" placeholder="Idade"
+                            value="{{ user.profile.age }}"/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="course" id="course" placeholder="Curso"
+                            value="{{ user.profile.course }}"/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="institution" id="institution" placeholder="Instituiçao"
+                            value="{{ user.profile.institution }}"/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="period" id="period" placeholder="Periodo"
+                            value="{{ user.profile.period }}"/>
+                            <div class="validation"></div>
+                        </div>
+
+                        <input type="submit" value="Cadastrar" class="btn btn-theme pull-left">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

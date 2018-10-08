@@ -1,0 +1,94 @@
+<section id="scheduler" class="section speakers">
+    {% load staticfiles %}
+
+    <head>
+        <link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive-tabs.css' %}">
+        <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+    </head>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Palestras</h3>
+            </div>
+        </div>
+
+        <!-- <p class="error-message">*As palestras e atividades marcadas para o dis 27/10 ocorrerão no dia 30/10 por conta do feriado deslocado.</p> -->
+
+        <div class="responsive-tabs">
+            {% if error and error == "mini_course" %}
+                <script>
+                    alert('Não há mais vagas para este Mini Curos.');
+                </script>
+            {% endif %}
+            {% for day in days %}
+                <h2>{{ day }} Outubro {{ seccim.year }}</h2>
+                <div>
+                    <ul class="timeline">
+                        {% for mini_course in mini_courses %}
+                            {% if mini_course.lecture.date.day == day %}
+
+                                <li {% if not forloop.counter0|divisibleby:2 %}class="timeline-inverted"{% endif %}>
+                                    <div class="timeline-badge"></div>
+                                    <div class="timeline-panel" >
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{ mini_course.lecture.title }}</h4>
+                                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ mini_course.lecture.date }} </small></p>
+                                        </div>
+					                    <p>{{ mini_course.lecture.speaker.name }}</p>
+                                        <div class="timeline-body">
+                                            <p>{{ mini_course.lecture.description }}</p>
+                                            <p>Vagas: {{ mini_course.places }}</p>
+                                            {% if user.is_authenticated and mini_course.showButton and mini_course.places > 0 %}
+                                                <form action="/register_course/" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="course_id" value="{{ mini_course.lecture.id }}">
+                                                    <input type="submit" value="Inscrever-se" class="btn btn-theme">
+                                                </form>
+                                            {% elif user in mini_course.enrolled.all %}
+                                                <form action="/out_course/" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="course_id" value="{{ mini_course.lecture.id }}">
+                                                    <p>Inscrito</p><input type="submit" value="Sair" class="btn btn-theme">
+                                                </form>
+                                            {% endif %}
+                                        </div>
+                                      </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for lecture in lectures %}
+                            {% if lecture.date.day == day %}
+                                <li {% if forloop.counter0|divisibleby:2 %}class="timeline-inverted"{% endif %}>
+                                    <div class="timeline-badge"></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{ lecture.title }}</h4>
+                                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ lecture.date }} </small></p>
+                                        </div>
+					                    <p>{{ lecture.speaker.name }}</p>
+                                        <div class="timeline-body">
+                                            <p>{{ lecture.description }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+
+		</div>
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+    <script src="{% static 'js/responsiveTabs.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+        RESPONSIVEUI.responsiveTabs();
+    })
+    </script>
+
+</section>

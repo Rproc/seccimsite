@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <section class="section registration">
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <h4>Liberar pagamentos</h4>
+
+            <legend>Selecione os inscritos que pagaram</legend>
+            <form action="/payment/" method="post">
+                {% csrf_token %}
+                {% for user in users_ %}
+                    <input type="checkbox" id="{{ user.user.email }}" name="{{ user.user.email }}"/><label for="{{ user.user.email }}">{{ user.name }}</label><br />
+                {% endfor %}
+
+                <input type="submit" value="Enviar">
+            </form>
+
+        </div>
+    </section>
+
+{% endblock %}
